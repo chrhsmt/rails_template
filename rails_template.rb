@@ -21,7 +21,7 @@ create_file 'Gemfile' do body = '' end
 add_source 'https://rubygems.org'
 add_source 'https://rails-assets.org'
 
-gem 'rails', '4.0.4'
+gem 'rails'
 gem 'rake'
 
 gem_group :development do 
