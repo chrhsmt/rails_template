@@ -27,6 +27,8 @@ gem 'rake'
 gem_group :development do 
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'bullet'
+  gem 'rack-mini-profiler'
   gem 'hirb'
   gem 'hirb-unicode'
   gem 'puma'
@@ -183,6 +185,18 @@ g.helper        false
 g.helper_specs  false
 end
 APPEND_APPLICATION
+
+environment <<-ADD
+  config.action_controller.perform_caching = true
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+  end
+ADD
+, env: 'development'
 
 
 remove_file '.gitignore'
