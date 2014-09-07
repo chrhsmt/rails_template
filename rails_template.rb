@@ -41,10 +41,13 @@ gem_group :production, :staging do
 end
 
 gem_group :development, :test do
+  gem 'style-guide'
+  gem "rack-livereload"
+  gem "guard-livereload"
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'pry-coolline'
-  gem 'pry-debugger'
+  gem 'pry-byebug'
   gem 'sqlite3'
   gem 'sqlite3-ruby', :require => 'sqlite3'
   gem 'factory_girl', '4.0'
@@ -58,8 +61,11 @@ gem_group :development, :test do
   gem 'spring'
   gem 'guard-rspec'
   gem 'guard-spring'
+  gem 'terminal-notifier-guard'
   gem 'childprocess'
+  gem 'database_cleaner'
   # gem 'rake_shared_context'
+
   gem 'turnip'
   gem 'rails-footnotes', github: 'josevalim/rails-footnotes'
 end
@@ -99,6 +105,10 @@ gem "i18n-js"
 gem 'active_decorator'
 
 gem 'exception_notification', "~> 4.0.1"
+gem 'airbrake'
+gem 'le'
+gem 'newrelic_rpm'
+gem "rack-contrib", require: "rack/contrib"
 gem 'bcrypt', '~> 3.1.7'
 
 ########################################
