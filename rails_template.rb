@@ -1,7 +1,7 @@
 
-def run_inner(command)
-    run "bash -lc \"rvm use #{@ruby_version}@#{@app_name}; #{command}\""
-end
+# def run_inner(command)
+#     run "bash -lc \"rvm use #{@ruby_version}@#{@app_name}; #{command}\""
+# end
 
 dir = Dir::pwd
 
@@ -10,7 +10,7 @@ dir = Dir::pwd
 ########################################
 @ruby_version = ask("which version of ruby do you use")
 # run "source ~/.rvm/scripts/rvm"
-run "bash -lc \"rvm use #{@ruby_version}; rvm gemset create #{@app_name}; gem update bundler;\""
+# run "bash -lc \"rvm use #{@ruby_version}; rvm gemset create #{@app_name}; gem update bundler;\""
 
 ########################################
 # Gemfile
@@ -60,7 +60,7 @@ gem_group :development, :test do
   gem 'launchy'
   gem 'spring'
   gem 'guard-rspec'
-  gem 'guard-spring'
+  # gem 'guard-spring'
   gem 'terminal-notifier-guard'
   gem 'childprocess'
   gem 'database_cleaner'
@@ -78,8 +78,8 @@ gem 'bootstrap-sass'
 
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
-gem 'rails-assets'
-gem 'rails-assets-jquery-form'
+# gem 'rails-assets'
+# gem 'rails-assets-jquery-form'
 gem 'kaminari'
 
 gem 'therubyracer', platforms: :ruby
@@ -114,21 +114,21 @@ gem 'bcrypt', '~> 3.1.7'
 ########################################
 # Bundle install
 ########################################
-run_inner "bundle config build.nokogiri --use-system-libraries"
-run_inner "bundle install"
-run_inner "bundle update"
-run_inner "bundle install"
+run "bundle config build.nokogiri --use-system-libraries"
+run "bundle install --path ./vendor/bundle"
+run "bundle update"
+run "bundle install"
 
 ########################################
 # Guard
 ########################################
-run_inner "bundle exec guard init rspec"
+run "bundle exec guard init rspec"
 
 ########################################
 # Generators
 ########################################
-run_inner 'bundle exec rails g rspec:install'
-run_inner "bundle exec rails g rails_footnotes:install"
+run 'bundle exec rails g rspec:install'
+run "bundle exec rails g rails_footnotes:install"
 
 ########################################
 # initializer
@@ -161,7 +161,8 @@ end
 # Spring
 ########################################
 # run 'bundle exec spring binstub rspec'
-run_inner "bundle exec guard init spring"
+run "bundle exec spring binstub --all"
+run "bundle exec guard init spring"
 
 ########################################
 # Rspec
@@ -196,7 +197,7 @@ g.helper_specs  false
 end
 APPEND_APPLICATION
 
-environment <<-ADD
+environment <<-ADD , env: 'development'
   config.action_controller.perform_caching = true
   config.after_initialize do
     Bullet.enable = true
@@ -206,7 +207,7 @@ environment <<-ADD
     Bullet.rails_logger = true
   end
 ADD
-, env: 'development'
+
 
 
 remove_file '.gitignore'
@@ -228,6 +229,7 @@ doc/
 .idea
 .secret
 /*.iml
+/vendor/bundle
 EOS
 end
 
@@ -277,7 +279,7 @@ root: #{dir}
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
 # pre_window: rbenv shell 2.0.0-p247
-pre_window: rvm use #{@ruby_version}@#{@app_name}
+# pre_window: rvm use #{@ruby_version}@#{@app_name}
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
