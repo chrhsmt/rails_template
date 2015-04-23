@@ -136,7 +136,7 @@ run "bundle exec rails g rails_footnotes:install"
 @exception_mail = ask("which mail adress does it receive")
 initializer 'exception_notification.rb', <<-CODE
 unless Rails.env.development?
-    PanoAuthor::Application.config.middleware.use ExceptionNotification::Rack,
+    #{@app_name.camelize}::Application.config.middleware.use ExceptionNotification::Rack,
       email: {
           email_prefix:         "[\#{Rails.env}][#{@app_name}] ",
           sender_address:       ENV['SMTP_USER'],
