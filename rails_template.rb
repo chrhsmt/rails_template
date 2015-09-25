@@ -129,28 +129,14 @@ run 'bundle exec rails g rspec:install'
 run "bundle exec rails g rails_footnotes:install"
 
 ########################################
-# initializer
-########################################
-@exception_mail = ask("which mail adress does it receive")
-initializer 'exception_notification.rb', <<-CODE
-unless Rails.env.development?
-    #{@app_name.camelize}::Application.config.middleware.use ExceptionNotification::Rack,
-      email: {
-          email_prefix:         "[\#{Rails.env}][#{@app_name}] ",
-          sender_address:       ENV['SMTP_USER'],
-          exception_recipients: ["#{@exception_mail}"]
-      }
-end
-CODE
-
-########################################
 # ENV
 ########################################
+@mail = ask("which mail adress does it receive")
 create_file '.env' do
     body = "
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
-SMTP_USER=#{@exception_mail}
+SMTP_USER=#{@mail}
 SMTP_PASSWD=
 "
 end
