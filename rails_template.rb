@@ -24,7 +24,7 @@ add_source 'https://rails-assets.org'
 gem 'rails'
 gem 'rake'
 
-gem_group :development do 
+gem_group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet'
@@ -32,6 +32,8 @@ gem_group :development do
   gem 'hirb'
   gem 'hirb-unicode'
   gem 'puma'
+  gem 'letter_opener'
+  gem 'letter_opener_web'
 end
 
 gem_group :production, :staging do
@@ -50,24 +52,24 @@ gem_group :development, :test do
   gem 'pry-byebug'
   gem 'sqlite3'
   gem 'sqlite3-ruby', :require => 'sqlite3'
+  gem 'rails-footnotes', github: 'josevalim/rails-footnotes'
+end
+
+gem_group :test do
   gem 'factory_girl', '4.0'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem "simplecov", require: false
-  gem 'capybara'  
+  gem 'capybara'
   gem "capybara-webkit"
   gem 'poltergeist'
   gem 'launchy'
   gem 'spring'
   gem 'guard-rspec'
-  # gem 'guard-spring'
   gem 'terminal-notifier-guard'
   gem 'childprocess'
   gem 'database_cleaner'
-  # gem 'rake_shared_context'
-
   gem 'turnip'
-  gem 'rails-footnotes', github: 'josevalim/rails-footnotes'
 end
 
 gem 'quiet_assets'
@@ -84,8 +86,6 @@ gem 'kaminari'
 
 gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
-gem 'turbolinks'
-gem 'jquery-turbolinks'
 
 gem 'html5_validators'
 
@@ -104,9 +104,7 @@ gem 'omniauth-google-oauth2'
 gem "i18n-js"
 gem 'active_decorator'
 
-gem 'exception_notification', "~> 4.0.1"
 gem 'airbrake'
-gem 'le'
 gem 'newrelic_rpm'
 gem "rack-contrib", require: "rack/contrib"
 gem 'bcrypt', '~> 3.1.7'
@@ -264,7 +262,7 @@ end
 ########################################
 # tmuxinator
 ########################################
-create_file "script/#{@app_name}.yml" do 
+create_file "script/#{@app_name}.yml" do
     body = "
 # ~/.tmuxinator/chrhsmt.com.yml
 
